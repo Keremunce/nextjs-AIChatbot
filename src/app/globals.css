@@ -6,7 +6,8 @@
 @tailwind utilities;
 
 :root {
-  --main-fontsize: 62.5%;/* 10px is equal to 1rem */
+  --main-fontsize: 62.5%;
+  /* 10px is equal to 1rem */
   --main-bgcolor: #141718;
   --background-color: #232627;
   --background-hover: #2A2C2D;
@@ -37,6 +38,7 @@
 html {
   height: 100%;
   font-size: var(--main-fontsize);
+  margin: 0;
 }
 
 body {
@@ -55,10 +57,10 @@ body {
 }
 
 .mainContainer {
-  height: 100%;
   display: flex;
   flex-direction: column;
   width: 50%;
+  height: 100%;
 }
 
 
@@ -109,26 +111,30 @@ body {
 }
 
 .mainContainer .innerContainer {
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: space-between;
+  height: 0;
+  /* justify-content: space-between; */
+  /* position: relative; */
 }
 
 .mainContainer .innerContainer .chatBox {
-  height: 100%;
+  /* height: 100%; */
   overflow-y: auto;
   flex: 1;
-  overflow-y: auto;
-  max-height: -webkit-fill-available;
+  padding: var(--padding-xl);
+  /* max-height: -webkit-fill-available; */
 }
-.mainContainer .innerContainer .chatBox .defaultMessagesWrapper{
+
+.mainContainer .innerContainer .chatBox .defaultMessagesWrapper {
   display: grid;
   gap: var(--box-gap);
   padding: var(--padding-xl);
 }
-.mainContainer .innerContainer .chatBox .defaultMessage{
+
+.mainContainer .innerContainer .chatBox .defaultMessage {
   color: var(--text-secondary);
   font-size: var(--text-md-size);
   font-weight: var(--text-medium);
@@ -139,9 +145,11 @@ body {
   transition: background-color .3s ease-in;
   cursor: pointer;
 }
-.mainContainer .innerContainer .chatBox .defaultMessage:hover{
+
+.mainContainer .innerContainer .chatBox .defaultMessage:hover {
   background-color: var(--background-hover);
 }
+
 .chatBox::-webkit-scrollbar {
   width: 5px;
   padding: 5px;
@@ -192,6 +200,7 @@ body {
   padding: var(--padding-xl);
 }
 
+
 .inputContainer {
   position: relative;
   border: 1px solid var(--border-primary);
@@ -218,7 +227,7 @@ body {
 .inputContainer input:active {
   border-color: var(--white);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  /* box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); */
 }
 
 .inputContainer button {
@@ -229,7 +238,7 @@ body {
   color: var(--white);
   background-color: var(--background-color);
   border: none;
-  padding: .25rem .5rem;
+  padding: 1rem;
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
