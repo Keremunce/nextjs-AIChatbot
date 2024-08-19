@@ -6,21 +6,26 @@
 @tailwind utilities;
 
 :root {
-  --main-fontsize: 62.5%; /* 10px is equal to 1rem */
+  --main-fontsize: 62.5%;/* 10px is equal to 1rem */
   --main-bgcolor: #141718;
   --background-color: #232627;
+  --background-hover: #2A2C2D;
   --white: #fff;
   --radius: 1.4rem;
   --radius-md: 0.7rem;
   --padding-xl: 3.5rem;
+  --padding-box: 1.8rem;
   --padding: 1.6rem;
   --padding-md: .8rem;
   --text-primary: #757474;
   --text-secondary: #A0A0A5;
   --text-third: #A3A3A8;
   --title-size: 4rem;
-  --border-primary: #676767;
   --text-size: 1.6rem;
+  --text-md-size: 1.4rem;
+  --text-medium: medium;
+  --border-primary: #676767;
+  --box-gap: 1.2rem;
 }
 
 *,
@@ -75,6 +80,7 @@ body {
 .mainContainer .ListButton svg {
   z-index: 1;
 }
+
 .mainContainer .ListButton:hover::before {
   background-color: var(--white);
   transform: translate(-50%, -50%) scale(1);
@@ -107,6 +113,7 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1;
+  justify-content: space-between;
 }
 
 .mainContainer .innerContainer .chatBox {
@@ -114,12 +121,29 @@ body {
   overflow-y: auto;
   flex: 1;
   overflow-y: auto;
-  max-height: 403px;
+  max-height: -webkit-fill-available;
 }
-
+.mainContainer .innerContainer .chatBox .defaultMessagesWrapper{
+  display: grid;
+  gap: var(--box-gap);
+  padding: var(--padding-xl);
+}
+.mainContainer .innerContainer .chatBox .defaultMessage{
+  color: var(--text-secondary);
+  font-size: var(--text-md-size);
+  font-weight: var(--text-medium);
+  background-color: var(--background-color);
+  padding: var(--padding-box);
+  border-radius: var(--radius);
+  text-align: center;
+  transition: background-color .3s ease-in;
+  cursor: pointer;
+}
+.mainContainer .innerContainer .chatBox .defaultMessage:hover{
+  background-color: var(--background-hover);
+}
 .chatBox::-webkit-scrollbar {
   width: 5px;
-  /* Adjust scrollbar width */
   padding: 5px;
 }
 
@@ -137,6 +161,21 @@ body {
   font-weight: medium;
   font-size: var(--text-size);
 
+}
+
+.mainContainer .innerContainer .chatBox .msgImgContainer {
+  padding-bottom: 2rem;
+}
+
+.mainContainer .innerContainer .chatBox .msgImgContainer img {
+  border-radius: var(--radius-md);
+}
+
+.mainContainer .innerContainer .chatBox p {
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .mainContainer .innerContainer .chatBox .userMsg {
@@ -166,6 +205,7 @@ body {
   appearance: none;
   width: 100%;
   height: 100%;
+  font-size: var(--text-size);
   padding: var(--padding);
   background-color: var(--background-color);
   border: 1px solid var(--border-primary);

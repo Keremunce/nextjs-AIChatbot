@@ -11,8 +11,10 @@ export default function HomePage() {
 	const [input, setInput] = useState<string>("");
 	const [messages, setMessages] = useState<Message[]>([]);
 	const chatBoxRef = useRef<HTMLDivElement>(null);
+	const defaultMessages = ["Remembers what user said earlier in the conversation", "Morning routine for productivity", "Best practices for coding in React", "How to stay motivated while working from home"];
+	const [showDefaultMessages, setShowDefaultMessages] = useState(true);
 
-	const sendMessage = async (): Promise<void> => {
+	const sendMessage = async (message: string = input): Promise<void> => {
 		const newMessages: Message[] = [...messages, { role: "user", content: input }];
 		setMessages(newMessages);
 
@@ -50,7 +52,12 @@ export default function HomePage() {
 			chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
 		}
 	}, [messages]);
-
+	const handleDefaultMessageClick = (message: string) => {
+		setInput(message);
+		setShowDefaultMessages(false); 
+		sendMessage(message);
+	};
+	
 	return (
 		<div className="mainContainer relative m-auto">
 			<div>
@@ -60,12 +67,21 @@ export default function HomePage() {
 			</div>
 			<div className="innerContainer">
 				<div ref={chatBoxRef} tabIndex={-1} className="chatBox">
+					{showDefaultMessages && (
+						<div className="defaultMessagesWrapper">
+							{defaultMessages.map((item, index) => (
+								<div key={index} onClick={() => handleDefaultMessageClick(item)} className="defaultMessage">
+									{item}
+								</div>
+							))}
+						</div>
+					)}
 					{messages.map((msg, index) => (
 						<div key={index}>
 							{msg.role === "user" ? (
 								<div className="userMsg">
-									<div>
-										<img width={20} src="/user.jpg" alt="user" />
+									<div className="msgImgContainer">
+										<img width={37} src="/user.jpg" alt="user" />
 									</div>
 									<div>
 										<p>{msg.content}</p>
@@ -73,8 +89,8 @@ export default function HomePage() {
 								</div>
 							) : (
 								<div className="assistantMsg">
-									<div>
-										<img width={20} src="/bot.jpg" alt="bot" />
+									<div className="msgImgContainer">
+										<img width={37} src="/bot.jpg" alt="bot" />
 									</div>
 									<div>
 										<p>{msg.content}</p>
@@ -87,12 +103,12 @@ export default function HomePage() {
 				<div className="inputWrapper">
 					<div className="inputContainer">
 						<input onKeyDown={handleKeyDown} tabIndex={0} type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Send a message." />
-						<button onClick={sendMessage}>
+						<button onClick={() => sendMessage()}>
 							<Send />
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
-	);
+	);	
 }
